@@ -50,12 +50,23 @@
       flex-direction: column;
       gap: 0.5rem;
     }
+    
+    main form.error {
+		border: 2px solid crimson;
+	}
 
     main form label {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
     }
+    
+    main form label>p.error{
+		background-color: crimson;
+		border-radius: 5px;
+		color: white;
+		padding: 0.5rem;
+	}
 
     footer {
       background-color: indigo;
@@ -73,21 +84,32 @@
 <body>
   <main>
     <h1> Library (<a href="/library/all"> Ver Libros </a>) </h1>
-    <h2> {{time}} </h2>
-    <form action="/library/save" method="POST">
+    <h2> {{#time}} {{.}} {{/time}} </h2>
+    
+    
+    <form class="{{#hasErrors}} error {{/hasErrors}}" action="/library/save" method="POST">
       <label for="isbn-field">
         ISBN:
         <input type="text" name="isbn" id="isbn-field" required>
+        {{#isbn_errors}}
+        	<p class="error"> {{.}} </p>
+        {{/isbn_errors}}
       </label>
 
       <label for="title-field">
         Title:
         <input type="text" name="title" id="title-field" required>
+        {{#title_errors}}
+        	<p class="error"> {{.}} </p>
+        {{/title_errors}}
       </label>
 
       <label for="owner-field">
         Owner:
         <input type="text" name="owner" id="owner-field" required>
+        {{#owner_errors}}
+        	<p class="error"> {{.}} </p>
+        {{/owner_errors}}
       </label>
 
       <input type="submit" value="Register">
@@ -95,7 +117,6 @@
   </main>
     
     {{>footer}}
-    
     
 </body>
 </html>
