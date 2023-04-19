@@ -13,8 +13,7 @@ import org.springframework.validation.FieldError;
 public class RequestErrorHandler {
 	Map<String, List<String>> mapErrors(List<FieldError> fielderrors) {
 		Map<String, List<String>> mappedErrors = new HashMap<>();
-    	fielderrors.getFieldErrors()
-    		.stream()
+    	fielderrors.stream()
     		.forEach(error -> {
     			String key = error.getField() + "_errors";
     			List<String> errors = mappedErrors.get(key);
